@@ -2,11 +2,11 @@
 Question: What is the respective share of ride bookings done by members and casuals(non-members)?
 */
 
- SELECT 
+SELECT 
     member_casual,
-    COUNT(ride_id) AS No_of_bookings
- FROM 
+    COUNT(ride_id) AS no_of_trips
+FROM 
     annual_data
- GROUP BY
+GROUP BY
     member_casual
  ;
