@@ -48,22 +48,12 @@ GROUP BY
 -- Number of rides booked by members and non-members(casual) in peak and non-peak hours
 
 SELECT
+    member_casual,
     COUNT(ride_id) AS morning_peak_bookings
 FROM 
     annual_data
 WHERE
     (start_time BETWEEN '07:00:00' AND '10:00:00'
     OR start_time BETWEEN '16:00:00' AND '20:00:00')
-    AND member_casual = 'member'
-;
-
-
-SELECT
-    COUNT(ride_id) AS morning_peak_bookings
-FROM 
-    annual_data
-WHERE
-    (start_time BETWEEN '07:00:00' AND '10:00:00'
-    OR start_time BETWEEN '16:00:00' AND '20:00:00')
-    AND member_casual = 'casual'
-;
+GROUP BY
+    member_casual;
