@@ -86,7 +86,8 @@ GROUP BY
 --HAVING
     --COUNT(ride_id) > '700'
 ORDER BY
-    bookings DESC;
+    bookings DESC
+LIMIT 20;
 
 SELECT
     start_station_name,
