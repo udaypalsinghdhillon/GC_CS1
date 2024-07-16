@@ -1,11 +1,11 @@
 /*
-Question: What is the average trip length by members and non-members(casual) and how does it vary:
+Question: What is the average trip duration by members and non-members(casual) and how does it vary:
 a) monthly 
 b) day of the week 
 Note: Database has "weekday" column which contains day of the week as 1(Monday) to 7(Sunday).
 */
 
--- Average trip length by members and non-members(casual) overall
+-- Average trip duration by members and non-members(casual) overall
 
 SELECT
     member_casual,
@@ -18,7 +18,7 @@ ORDER BY
     average_trip_duration DESC;
 
 
--- Average trip length monthly
+-- Average trip duration monthly
 
 SELECT
     member_casual,
@@ -31,11 +31,11 @@ ORDER BY
     average_trip_duration DESC;
 
 /*
- Using same syntax as above, average ride length for each month was calculated by using the correct table name corresponding to each month
+ Using same syntax as above, average ride duration for each month was calculated by using the correct table name corresponding to each month
 */
 
 
--- Average trip length week per the day of the week by members and non-members(casual)
+-- Average trip duration week per the day of the week by members and non-members(casual)
 
 -- Members
 
