@@ -49,7 +49,7 @@ GROUP BY
 
 SELECT
     member_casual,
-    COUNT(ride_id) AS morning_peak_bookings
+    COUNT(ride_id) AS peak_hour_bookings
 FROM 
     annual_data
 WHERE
