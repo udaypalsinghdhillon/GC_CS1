@@ -59,8 +59,8 @@ GROUP BY
 | Casual        | 2047618     |
 | Member        | 3626397     |
 
+![alt text](assets/Q1.png)
 
-![Share of Total Bookings](assets\Q1.png)
-
+a
 # WHAT I LEARNED
 
