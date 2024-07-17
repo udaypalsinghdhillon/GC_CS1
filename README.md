@@ -54,13 +54,106 @@ GROUP BY
  ;
 ```
 
-| Member Type   | Number of Bookings |
+| Member Type   | Number of Rides |
 |---------------|-------------|
 | Casual        | 2047618     |
 | Member        | 3626397     |
 
 ![alt text](assets/Q1.png)
+*From the data, it is evident that annual members constitute a larger share of the rides compared to casual riders. Specifically, annual members accounted for approximately 64% of the total rides, while casual riders accounted for the remaining 36%. This indicates that while casual riders form a significant portion of the user base, the majority of the usage comes from annual members.*
 
-a
+## 2. What is the bike-type preference of member and casual riders?
+
+
+
+
+Here we calculate the bike-type preference for:
+-  All Rides
+-  Members
+-  Casual
+
+```sql
+--Share of each bike-type in all ride bookings
+
+SELECT
+    rideable_type,
+    COUNT(ride_id) AS no_of_trips
+FROM 
+    annual_data
+GROUP BY
+    rideable_type
+ORDER BY
+    no_of_trips DESC;
+
+-- Share of each bike-type in all member bookings
+
+SELECT
+    rideable_type,
+    COUNT(ride_id) AS no_of_trips_members
+FROM 
+    annual_data
+WHERE
+    member_casual = 'member'
+GROUP BY
+    rideable_type;
+
+-- Share of each bike-type in all non-member(casual) bookings
+
+SELECT
+    rideable_type,
+    COUNT(ride_id) AS no_of_trips_casual
+FROM 
+    annual_data
+WHERE
+    member_casual = 'casual'
+GROUP BY
+    rideable_type;
+```
+
+####  All Rides
+| Bike Type    | Number of Trips |
+|--------------|-----------------|
+| Electric bike | 2,900,810       |
+| Classic bike  | 2,694,974       |
+| Docked bike   | 78,231          |
+
+![alt text](assets/Q2/Q2bike_type.png)
+
+####  Members
+| Bike Type    | Share of Each Bike Type in Total Member Rides |
+|--------------|-----------------------------------------------|
+| Classic bike | 1,818,334                                     |
+| Electric bike| 1,808,063                                     |
+
+![alt text](assets/Q2/Q2member.png)
+
+####  Casual Riders
+
+| Bike Type    | Share of Each Bike Type in Total Casual Rides |
+|--------------|-----------------------------------------------|
+| Classic bike | 876,640                                       |
+| Electric bike| 1,092,747                                     |
+| Docked bike  | 78,231                                        |
+
+![alt text](assets/Q2/Q2casual.png)
+
+From the analysis, it is clear that the preferences for bike types vary between members and casual riders. Overall, electric bikes are slightly more popular, with 2.9 million rides, compared to 2.69 million rides for classic bikes and a smaller number of rides for docked bikes.
+
+Among members, the preference is nearly evenly split between electric bikes and classic bikes, each accounting for approximately 50% of the rides. This indicates that members appreciate both types of bikes equally for their commutes or leisure rides.
+
+In contrast, casual riders show a stronger preference for electric bikes, which constitute 53% of their rides. Classic bikes follow at 43%, with docked bikes making up a small 4% of the rides. This suggests that casual riders may prefer the convenience and speed of electric bikes for their occasional use.
+
+## 3. 
+
+
+
+
+
+
+
+
+
+
+
 # WHAT I LEARNED
 
