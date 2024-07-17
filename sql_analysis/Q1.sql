@@ -1,5 +1,5 @@
 /* 
-Question: What is the respective share of ride bookings done by members and casuals(non-members)?
+Question: What is the respective share of ride trips done by members and casuals(non-members)?
 */
 
 SELECT 

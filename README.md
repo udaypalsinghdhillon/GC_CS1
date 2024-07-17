@@ -39,6 +39,28 @@ In this project, I utilized a variety of tools to manage, analyze, visualize, an
 
 # THE ANALYSIS
 
+Each query for this project aimed at investigating specific aspects of the bike sharing data
+
+## 1. SHARE OF RIDES FOR MEMBER AND CASUAL RIDERS
+We can calculate the number and percentage of rides by the type of user.
+```sql
+SELECT 
+    member_casual,
+    COUNT(ride_id) AS no_of_trips
+FROM 
+    annual_data
+GROUP BY
+    member_casual
+ ;
+```
+
+| Member Type   | Number of Bookings |
+|---------------|-------------|
+| Casual        | 2047618     |
+| Member        | 3626397     |
+
+
+![Share of Total Bookings](assets\Q1.png)
 
 # WHAT I LEARNED
 
