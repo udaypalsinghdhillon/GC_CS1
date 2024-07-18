@@ -1,5 +1,8 @@
 /*
-Question: What is the number of rides booked by members and non-members(casual) and how does it vary: a) monthly b) day of the week c) peak/non-peak hours?
+Question: What is the number of rides booked by members and non-members(casual) and how does it vary:
+ a) Monthly 
+ b) Day of the week
+ c) Peak/non-peak hours?
 Assumption: Peak hours have been taken as 07:00 to 10:00 hrs and 16:00 to 20:00 hrs.
 Note: Database has "weekday" column which contains day of the week as 1(Monday) to 7(Sunday).
 */

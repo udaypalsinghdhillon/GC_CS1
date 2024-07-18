@@ -1,7 +1,7 @@
 /*
 Question: What is the average trip duration by members and non-members(casual) and how does it vary:
-a) monthly 
-b) day of the week 
+a) Monthly 
+b) Day of the week 
 Note: Database has "weekday" column which contains day of the week as 1(Monday) to 7(Sunday).
 */
 
