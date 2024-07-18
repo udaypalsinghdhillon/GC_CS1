@@ -1,5 +1,5 @@
 /* 
-Question: Which are the busiest stations for booking rides used by members and non-members(casuals)?
+Question: Which are the busiest stations for members and non-members(casuals)?
 Note: Busiest station was defined based on number of rides starting from a station.
 */
 

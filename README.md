@@ -67,11 +67,9 @@ From the data, it is evident that annual members constitute a larger share of th
 ## 2. What is the bike-type preference of member and casual riders?
 
 
-
-
-Here we calculate the bike-type preference for:
-- a) All trips in the year (2023)
-- b) Members
+Calculated the bike-type preference for:
+- a) All trips booked in the year (2023)
+- b) Members 
 - c) Casual riders
 
 ```sql
@@ -147,8 +145,8 @@ Among members, the preference is nearly evenly split between electric bikes and 
 In contrast, casual riders show a stronger preference for electric bikes, which constitute 53% of their rides. Classic bikes follow at 43%, with docked bikes making up a small 4% of the rides. This suggests that casual riders may prefer the convenience and speed of electric bikes for their occasional use.
 
 ## 3. Question: What is the number of trips booked by members and non-members(casual) ?
-We calculate the number of rides booked by members and casual riders and how does it vary:
-- a) Monthly
+Calculated the number of rides booked by members and casual riders and how does it vary based on:
+- a) Month
 - b) Day of the week
 - c) Peak/non-peak hours
 
@@ -288,7 +286,130 @@ Slightly more rides during peak hours (1,833,399) than non-peak hours (1,792,998
 /*Summary
 These insights illustrate clear distinctions between casual and member riders in terms of their biking habits. Casual riders show a preference for leisure and recreational use, especially during weekends and non-peak hours, while member riders use bike-sharing services more consistently for commuting purposes, with a higher volume of rides during peak hours and weekdays.*/
 
-## 4. Question: 
+## 4. Question: What is the average trip duration for each user type?
+
+Calculated the average trip duration and how does it vary based on:
+- a) Type of user
+- b) Month
+- c) Day of the week
+
+```sql
+-- Average trip duration by members and non-members(casual) overall
+
+SELECT
+    member_casual,
+    ROUND(AVG(ride_length_mins),2) AS average_trip_duration
+FROM 
+    annual_data
+GROUP BY
+    member_casual
+ORDER BY
+    average_trip_duration DESC;
+
+
+-- Average trip duration monthly
+
+SELECT
+    member_casual,
+    ROUND(AVG(ride_length_mins),2) AS average_trip_duration
+FROM 
+    jan
+GROUP BY
+    member_casual
+ORDER BY
+    average_trip_duration DESC;
+
+/*
+ Using same syntax as above, average ride duration for each month was calculated by using the correct table name corresponding to each month
+*/
+
+
+-- Average trip duration week per the day of the week by members and non-members(casual)
+
+-- Members
+
+SELECT
+    weekday,
+    ROUND(AVG(ride_length_mins),2) AS average_trip_duration
+FROM 
+    annual_data
+WHERE
+    member_casual = 'member'
+GROUP BY
+    weekday;
+
+-- Non-members(Casual)
+
+SELECT
+    weekday,
+    ROUND(AVG(ride_length_mins),2) AS average_trip_duration
+FROM 
+    annual_data
+WHERE
+    member_casual = 'casual'
+GROUP BY
+    weekday;
+```
+
+a) Type of User
+
+*Average Trip Duration for All Trips Booked in 2023*
+
+| User Type | Average Trip Duration (mins) |
+|-----------|------------------------------|
+| Casual    | 21.23                        |
+| Member    | 12.09                        |
+
+![alt text](assets/Q4/Q4afinal.png)
+
+
+b) Month
+
+*Table showing the average trip duration in minutes for each user type across each month in the year 2023*
+
+|         | Jan   | Feb   | Mar   | Apr   | May   | Jun   | Jul   | Aug   | Sep   | Oct   | Nov   | Dec   |
+|---------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+| Casual  | 14.83 | 16.63 | 16.02 | 21.33 | 22.66 | 22.32 | 23.59 | 22.67 | 21.26 | 19.08 | 16.17 | 14.99 |
+| Member  | 9.96  | 10.47 | 10.2  | 11.47 | 12.58 | 12.86 | 13.21 | 13.18 | 12.64 | 11.57 | 11.02 | 10.92 |
+
+
+![alt text](assets/Q4/Q4monthlyfinal.png)
+
+
+c) Day of the week
+
+*Table showing the average trip duration in minutes for each user type across each day of the week in the year 2023*
+
+|          | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday |
+|----------|--------|---------|-----------|----------|--------|----------|--------|
+| Member   | 11.48  | 11.61   | 11.54     | 11.61    | 12.03  | 13.48    | 13.48  |
+| Casual   | 20.86  | 19.02   | 18.11     | 18.53    | 20.59  | 24.04    | 24.77  |
+
+
+![alt text](assets/Q4/Q4dayfinal.png)
+
+#### Insights
+
+a) Type of User
+
+Casual users have a longer average trip duration compared to members, indicating a difference in trip behavior between user types.
+
+b) Month
+
+Trip durations vary across months, with generally longer durations observed during summer months for both casual and member users.
+
+c) Day of the Week
+
+There is a noticeable difference in trip durations between weekdays and weekends, with weekends showing longer trip durations, especially for casual users.
+
+
+- Casual users consistently show longer trip durations compared to members.
+- Trip durations vary significantly across months, peaking during summer.
+- Weekends exhibit longer trip durations compared to weekdays, particularly for casual users.
+
+## 5. Question: Which are the busiest stations for members and casual riders?
+
+
 
 
 # WHAT I LEARNED
