@@ -283,8 +283,6 @@ Prefer non-peak hours (1,177,355) over peak hours (870,263), likely for leisure.
 
 Slightly more rides during peak hours (1,833,399) than non-peak hours (1,792,998), reflecting commuting patterns.
 
-/*Summary
-These insights illustrate clear distinctions between casual and member riders in terms of their biking habits. Casual riders show a preference for leisure and recreational use, especially during weekends and non-peak hours, while member riders use bike-sharing services more consistently for commuting purposes, with a higher volume of rides during peak hours and weekdays.*/
 
 ## 4. Question: What is the average trip duration for each user type?
 
@@ -409,8 +407,214 @@ There is a noticeable difference in trip durations between weekdays and weekends
 
 ## 5. Question: Which are the busiest stations for members and casual riders?
 
+Calculated the Top 10 busiest stations based on the number of rides starting from a station for:
+
+a) Members
+
+b) Casual Riders
+
+```sql
+-- Top 10 busiest stations for members
+
+SELECT
+    start_station_name,
+    COUNT(ride_id) AS bookings
+FROM 
+    annual_data
+WHERE
+    start_station_name IS NOT NULL
+    AND member_casual = 'member'
+GROUP BY
+    start_station_name
+ORDER BY
+    bookings DESC
+LIMIT 10;
 
 
 
-# WHAT I LEARNED
+-- Top 10 busiest stations for non-members(casuals)
+
+SELECT
+    start_station_name,
+    COUNT(ride_id) AS bookings
+FROM 
+    annual_data
+WHERE
+    start_station_name IS NOT NULL
+    AND member_casual = 'casual'
+GROUP BY
+    start_station_name
+ORDER BY
+    bookings DESC
+LIMIT 10;
+```
+a) Members
+
+*Top 10 busiest stations for ride bookings by members in the year 2023*
+| Station Name         | Rides started |
+|----------------------------|----------|
+| Clinton St & Washington Blvd | 26129   |
+| Kingsbury St & Kinzie St     | 26076   |
+| Clark St & Elm St            | 24885   |
+| Wells St & Concord Ln        | 21340   |
+| Clinton St & Madison St      | 20507   |
+| Wells St & Elm St            | 20313   |
+| University Ave & 57th St     | 19847   |
+| Broadway & Barry Ave         | 18870   |
+| Loomis St & Lexington St     | 18857   |
+
+c) Casual Riders
+*Top 10 busiest stations for ride bookings by casual riders in the year 2023*
+
+| Station Name                          | Rides Started |
+|---------------------------------------------|----------|
+| Streeter Dr & Grand Ave                     | 46009    |
+| DuSable Lake Shore Dr & Monroe St           | 30472    |
+| Michigan Ave & Oak St                       | 22653    |
+| DuSable Lake Shore Dr & North Blvd          | 20331    |
+| Millennium Park                             | 20202    |
+| Shedd Aquarium                              | 17769    |
+| Theater on the Lake                         | 16354    |
+| Dusable Harbor                              | 15483    |
+| Wells St & Concord Ln                       | 12153    |
+
+
+# **Insights**
+
+### **1) Overall Usage Patterns**
+
+   **a) Higher Ride Volume Among Members:**
+
+- Annual members account for a significantly larger share of rides compared to casual riders, with members constituting about 64% of the total rides. This indicates that while casual riders form a significant portion of the user base, the majority of the usage comes from annual members.
+
+### **2) Bike Type Preferences**
+
+   **a) Bike Type Preferences Vary by User Type:**
+
+- Electric bikes are the most popular overall, with 2.9 million rides, followed closely by classic bikes with 2.69 million rides.
+
+- Among members, the preference is nearly evenly split between electric bikes and classic bikes, each accounting for about 50% of the rides.
+
+- Casual riders show a stronger preference for electric bikes, which constitute 53% of their rides, indicating a tendency towards the convenience and speed of electric bikes for occasional use.
+
+### **3) Temporal Usage Patterns**
+
+   **a) Monthly Trends:**
+
+  - Both casual and member riders show increased activity during the warmer months, peaking in the summer (July for casual riders and August for members). This seasonal trend suggests that marketing efforts should be intensified during these months to maximize engagement and potential conversions.
+
+  - Casual riders exhibit a sharper increase in rides during these months, likely due to tourism and recreational use.
+
+  **b) Weekly Trends:**
+
+  - Casual riders prefer weekends, especially Saturdays and Sundays, reflecting leisure use. This contrasts with members who show consistent usage across weekdays, peaking mid-week, indicative of routine commutes.
+
+  - This highlights the potential for weekend-focused promotions and events to convert casual riders who are more active during these times.
+
+  **c) Peak and Non-Peak Hours:**
+
+   - Casual riders prefer non-peak hours, likely reflecting leisure use outside of commuting times.
+   - Members have a balanced distribution between peak and non-peak hours, consistent with commuting patterns.
+   - Marketing campaigns can target non-peak hours for casual riders, offering incentives to use the service during these times.
+
+### **4) Average Trip Duration**
+
+ **a) Longer Trips for Casual Riders:**
+
+   - Casual riders have a longer average trip duration (21.23 minutes) compared to members (12.09 minutes).
+
+   - Casual riders' trips are longer during weekends, especially Saturdays and Sundays, further supporting the leisure use hypothesis.
+
+   - Members' trip durations are more consistent but peak slightly on weekends, suggesting occasional leisure use in addition to commuting.
+
+### **5) Busiest Stations**
+
+   **a) Members' Top Stations:**
+
+   - Key stations for members are dispersed across the city, with Clinton St & Washington Blvd and Kingsbury St & Kinzie St being the busiest. These stations likely serve as major commuting hubs.
+
+   - Stations near commercial and residential areas like Clark St & Elm St and Wells St & Concord Ln also show high usage.
+
+   **b) Casual Riders' Top Stations:**
+
+   - Casual riders favor stations near tourist attractions and recreational areas, with Streeter Dr & Grand Ave being the busiest, followed by DuSable Lake Shore Dr & Monroe St and Millennium Park.
+
+   - This preference highlights the importance of these locations for attracting casual riders and suggests a focus on these areas for targeted marketing efforts to convert these riders into members.
+
+## Strategic Recommendations
+
+Based on the analysis of Cyclistic's bike-share data, here are the key strategic recommendations to increase annual memberships and optimize the marketing strategy:
+
+### 1. **Leverage Peak Usage Months and Days**
+
+- **Promote Memberships During Peak Months:** Focus marketing efforts on the months of July and August, which have the highest usage for both casual and member riders. Offer special membership promotions during these peak months to convert casual riders.
+- **Weekend Promotions:** Target casual riders with weekend-specific promotions, as data shows higher usage by casual riders on Saturdays and Sundays. Highlight the benefits of membership for weekend activities.
+
+### 2. **Focus on Popular Bike Types**
+
+- **Electric Bikes Promotion:** Given that electric bikes are popular among both casual riders (53% of rides) and members (50% of rides), promote the convenience and benefits of electric bikes in membership plans.
+- **Classic Bikes Incentives:** Offer incentives for using classic bikes, which are also widely used, to balance the demand and ensure availability of electric bikes.
+
+### 3. **Optimize Station Locations**
+
+- **Busiest Stations for Casual Riders:** Enhance facilities and bike availability at the top stations for casual riders, such as Streeter Dr & Grand Ave and DuSable Lake Shore Dr & Monroe St. Consider placing promotional materials and membership sign-up kiosks at these locations.
+- **Busiest Stations for Members:** Ensure efficient service and quick turnover at the busiest stations for members, like Clinton St & Washington Blvd and Kingsbury St & Kinzie St, to maintain high satisfaction and encourage renewals.
+
+### 4. **Time-Based Promotions**
+
+- **Peak Hour Offers:** With members having slightly more rides during peak hours (07:00-10:00 and 16:00-20:00), consider offering peak hour incentives or discounts for memberships.
+- **Non-Peak Hour Engagement:** Casual riders prefer non-peak hours. Develop marketing campaigns that highlight off-peak hour benefits of memberships, such as flexibility and availability.
+
+### 5. **Highlight Longer Average Trip Durations**
+
+- **Casual Riders Trip Duration:** Since casual riders have longer average trip durations (21.23 mins) compared to members (12.09 mins), create marketing messages that emphasize unlimited ride time benefits for members, appealing to casual riders who enjoy longer trips.
+- **Seasonal Trip Duration Trends:** Capitalize on the increased trip durations during summer months by promoting long-ride benefits in membership plans.
+
+### 6. **Day-Specific Marketing**
+
+- **Weekday vs Weekend Usage:** Tailor marketing strategies based on the distinct usage patterns. Promote weekday commuting benefits to casual riders, while emphasizing weekend leisure and recreational benefits to convert weekend casual riders to members.
+
+### 7. **Enhanced User Experience**
+
+- **Upgrade and Maintain Popular Bike Types:** Focus on maintaining and upgrading the fleet, especially electric bikes, which are highly favored by both user types.
+- **Improve Availability at Key Stations:** Ensure high bike availability at stations with the highest traffic to improve user satisfaction and encourage membership sign-ups.
+
+By implementing these recommendations, Cyclistic can effectively target casual riders, highlighting the specific benefits and conveniences of becoming an annual member, thus driving membership growth.
+
+# Learnings
+
+This project provided an invaluable opportunity to enhance my skills and knowledge across various aspects of data analysis, database management, and collaboration tools. Here are the key learnings from this project:
+
+### 1. **Working with Big Datasets**
+
+- **Handling Large Volumes of Data:** I learned how to efficiently manage and analyze large datasets, ensuring optimal performance and accuracy. This involved developing strategies for data extraction, transformation, and loading (ETL) processes.
+- **Data Cleaning Techniques:** I improved my data cleaning skills, including handling missing values, correcting data types, and removing duplicates to ensure data integrity and reliability.
+
+### 2. **Database Management in PostgreSQL**
+
+- **Database Design and Management:** I gained hands-on experience in designing and managing databases using PostgreSQL.
+- **SQL Queries:** I enhanced my proficiency in writing complex SQL queries to extract meaningful insights from the data.
+
+### 3. **Data Analysis Tools**
+
+- **Excel for Data Analysis:** I utilized Excel for initial data exploration and analysis, leveraging its powerful functions, and charting capabilities to identify trends and patterns.
+- **PostgreSQL for Advanced Analysis:** PostgreSQL was instrumental for handling more advanced data manipulation and analysis tasks, allowing for efficient querying and processing of large datasets.
+
+### 4. **Coding and Development Environments**
+
+- **Visual Studio Code:** I used Visual Studio Code as my primary development environment, benefiting from its robust features such as syntax highlighting, debugging, and extensions for SQL and data analysis.
+- **Version Control with Git and GitHub:** I practiced version control using Git and GitHub, learning how to effectively manage code changes, collaborate with team members, and maintain a clean project history through commits and branches.
+
+### 5. **Data Visualization and Reporting**
+
+- **Visualizing Data Insights:** I learned how to create compelling visualizations to communicate data insights effectively. This included using charting capabilities in Excel.
+- **Creating Reports:** I developed skills in compiling and presenting data analysis results in a clear and concise manner, ensuring that insights are easily understandable and actionable for stakeholders.
+
+### 6. **Project Management and Collaboration**
+
+- **Collaborative Development:** Working with GitHub, I experienced the benefits of collaborative development, including code reviews, issue tracking, and collaborative problem-solving.
+- **Project Documentation:** I understood the importance of maintaining comprehensive project documentation, including README files, code comments, and detailed reports to facilitate knowledge sharing and project continuity.
+
+This project was a comprehensive learning experience, reinforcing my data analysis and database management skills while providing practical insights into the tools and techniques used in real-world data projects.
+
 
